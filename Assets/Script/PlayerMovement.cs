@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,12 +9,17 @@ public class PlayerMovement : MonoBehaviour
 {
     public float Speed;
     public float JumpPower;
-    public float PressDelayTime = 0.3f;
     private bool isGround = false;
     private Rigidbody2D rb;
 
-    private bool isDouble = false;
-    private float timer;
+    public bool isDouble = false;
+    public bool isDouble2 = false;
+    private float timer = 0.2f;
+    private float timer2 = 0.2f;
+    private bool timerActive = false;
+    private bool timer2Active = false;
+    public int PressCount = 0;
+    public int PressCount2 = 0;
 
     void Start()
     {
@@ -23,21 +29,80 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector3 moveVelocity = Vector3.zero;
-        if (!isDouble)
+        if (Input.GetKey(KeyCode.A))
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-                moveVelocity = Vector3.left;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-                moveVelocity = Vector3.right;
-            }
+            PressCount2 = 0;
+            timer2Active = false;
+            isDouble2 = false;
+            KeyFunction();
+            moveVelocity = Vector3.left * (isDouble ? 1.5f : 1.0f);
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            PressCount = 0;
+            timerActive = false;
+            isDouble = false;
+            KeyFunction2();
+            moveVelocity = Vector3.right * (isDouble2 ? 1.5f : 1.0f);
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            isDouble = false;
+            timerActive = false;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            isDouble2 = false;
+            timer2Active = false;
         }
         Move(moveVelocity);
         Jump();
+    }
+    void KeyFunction()
+    {
+        if (timerActive)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                timerActive = false;
+                timer = 0.2f;
+                PressCount = 0;
+            }
+        }
+        if(!timerActive && Input.GetKeyDown(KeyCode.A))
+        {
+            timerActive = true;
+            PressCount++;
+            if(PressCount >= 2)
+            {
+                isDouble = true;
+            }
+        }
+    }
+    void KeyFunction2()
+    {
+        if (timer2Active)
+        {
+            timer2 -= Time.deltaTime;
+            if (timer2 <= 0)
+            {
+                timer2Active = false;
+                timer2 = 0.2f;
+                PressCount2 = 0;
+            }
+        }
+        if (!timer2Active && Input.GetKeyDown(KeyCode.D))
+        {
+            timer2Active = true;
+            PressCount2++;
+            if (PressCount2 >= 2)
+            {
+                isDouble2 = true;
+            }
+        }
     }
     void Move(Vector3 moveVelocity)
     {
