@@ -11,18 +11,20 @@ public class PlayerMovement : MonoBehaviour
     public float JumpPower;
     private bool isGround = false;
     private Rigidbody2D rb;
+    private Animator animator;
 
-    public bool isDouble = false;
-    public bool isDouble2 = false;
+    private bool isDouble = false;
+    private bool isDouble2 = false;
     private float timer = 0.2f;
     private float timer2 = 0.2f;
     private bool timerActive = false;
     private bool timer2Active = false;
-    public int PressCount = 0;
-    public int PressCount2 = 0;
+    private int PressCount = 0;
+    private int PressCount2 = 0;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveVelocity = Vector3.zero;
         if (Input.GetKey(KeyCode.A))
         {
+            animator.SetBool("IsRunning", true);
             PressCount2 = 0;
             timer2Active = false;
             isDouble2 = false;
@@ -40,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
+            animator.SetBool("IsRunning", true);
             PressCount = 0;
             timerActive = false;
             isDouble = false;
@@ -49,11 +53,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
+            animator.SetBool("IsRunning", false);
             isDouble = false;
             timerActive = false;
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
+            animator.SetBool("IsRunning", false);
             isDouble2 = false;
             timer2Active = false;
         }
