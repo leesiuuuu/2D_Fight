@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Move(moveVelocity);
         Jump();
+
     }
     void KeyFunction()
     {
@@ -118,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) && isGround)
         {
+            animator.SetBool("IsJumping", true);
             isGround = false;
             rb.velocity = Vector3.zero;
             Vector3 JumpVelocity = new Vector3(0, JumpPower, 0);
@@ -129,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
+            animator.SetBool("IsJumping", false);
         }
     }
 }

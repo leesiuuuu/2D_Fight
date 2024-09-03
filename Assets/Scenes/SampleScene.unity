@@ -484,9 +484,9 @@ GameObject:
   - component: {fileID: 909345582}
   - component: {fileID: 909345584}
   - component: {fileID: 909345585}
+  - component: {fileID: 909345588}
   - component: {fileID: 909345587}
   - component: {fileID: 909345586}
-  - component: {fileID: 909345588}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  JumpPower: 8
+  JumpPower: 12
 --- !u!50 &909345586
 Rigidbody2D:
   serializedVersion: 4
