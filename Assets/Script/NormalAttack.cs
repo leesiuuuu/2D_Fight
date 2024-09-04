@@ -10,10 +10,12 @@ public class NormalAttack : MonoBehaviour
 {
     private Animator animator;
     private PlayerMovement PM;
+    public GameObject AtkCol;
     void Start()
     {
         PM = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+        AtkCol.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class NormalAttack : MonoBehaviour
             }
             if (!Input.anyKey)
             {
+                AtkCol.SetActive(false);
                 PM.enabled = true;
             }
         }
@@ -38,12 +41,14 @@ public class NormalAttack : MonoBehaviour
     void PunchAtk()
     {
         PM.enabled = false;
+        AtkCol.SetActive(true);
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Punch");
     }
     void CounterAtk()
     {
         PM.enabled = false;
+        AtkCol.SetActive(true);
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Counter");
     }
