@@ -683,7 +683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0e72a22a96384499f9de8f3c3c33a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AtkCol: {fileID: 1166130706}
 --- !u!1 &1063429582
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +808,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 5
+  m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -852,7 +851,7 @@ GameObject:
   - component: {fileID: 1256940368}
   - component: {fileID: 1256940367}
   m_Layer: 7
-  m_Name: Example
+  m_Name: Dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
