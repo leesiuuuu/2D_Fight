@@ -28,6 +28,11 @@ public class DummyCOde : MonoBehaviour
             {
                 Damaged(DummyManager.instance.CounterDamage, 0.3f, ConflictPos);
             }
+            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill2") && !isAttacking)
+            {
+                GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5, ForceMode2D.Force);
+                Damaged(DummyManager.instance.Skill2Damage, 0.5f, ConflictPos);
+            }
 
         }
     }

@@ -11,6 +11,7 @@ public class DummyManager : MonoBehaviour
     public float Damaged = 0f;
     public float NormalDamage = 2f;
     public float CounterDamage = 3f;
+    public float Skill2Damage = 7f;
     public GameObject Damageinfo;
     void Awake()
     {
