@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float Speed;
     public float JumpPower;
+
+    public static bool isSkilled = false;
+
     private bool isGround = false;
     private Rigidbody2D rb;
     private Animator animator;
@@ -31,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector3 moveVelocity = Vector3.zero;
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !isSkilled)
         {
             animator.SetBool("IsRunning", true);
             PressCount2 = 0;
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             moveVelocity = Vector3.left * (isDouble ? 1.5f : 1.0f);
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !isSkilled)
         {
             animator.SetBool("IsRunning", true);
             PressCount = 0;
@@ -51,13 +54,13 @@ public class PlayerMovement : MonoBehaviour
             moveVelocity = Vector3.right * (isDouble2 ? 1.5f : 1.0f);
             transform.localScale = new Vector3(1, 1, 1);
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.A) && !isSkilled)
         {
             animator.SetBool("IsRunning", false);
             isDouble = false;
             timerActive = false;
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.D) && !isSkilled)
         {
             animator.SetBool("IsRunning", false);
             isDouble2 = false;

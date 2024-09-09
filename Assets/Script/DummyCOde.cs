@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
 
 public class DummyCOde : MonoBehaviour
 {
@@ -15,6 +11,7 @@ public class DummyCOde : MonoBehaviour
     public float PunchedForce;
     public GameObject DamageText;
     public PhysicsMaterial2D PhysicsMaterial;
+
     private Rigidbody2D rb;
     void Start()
     {
@@ -48,7 +45,7 @@ public class DummyCOde : MonoBehaviour
                 }
                 else if(!isAttacking && isAirboned)
                 {
-                    Damaged_Push(DummyManager.instance.CounterDamage * 1.3f, (other.gameObject.transform.parent.transform.localScale == new Vector3(1,1,1)) ? Vector2.right : Vector2.left, PunchedForce, ConflictPos);
+                    Damaged_Push(DummyManager.instance.CounterDamage * 1.5f, (other.gameObject.transform.parent.transform.localScale == new Vector3(1,1,1)) ? Vector2.right : Vector2.left, PunchedForce, ConflictPos);
                 }
             }
             if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill2") && !isAttacking)

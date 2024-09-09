@@ -1,10 +1,6 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.Animations;
 
 public class NormalAttack : MonoBehaviour
 {
@@ -22,7 +18,6 @@ public class NormalAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.J) && !CanCombo)
         {
             PunchAtk();
@@ -35,31 +30,29 @@ public class NormalAttack : MonoBehaviour
         {
             Skill2Atk();
         }
-        else if(Input.GetKeyDown(KeyCode.W) && !CanCombo)
-        {
-
-        }
         else if (!Input.anyKey)
         {
-            PM.enabled = true;
+            PlayerMovement.isSkilled = false;
         }
 
     }
+
     void PunchAtk()
     {
-        PM.enabled = false;
+        PlayerMovement.isSkilled = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Punch");
     }
+
     void CounterAtk()
     {
-        PM.enabled = false;
+        PlayerMovement.isSkilled = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Counter");
     }
     void Skill2Atk()
     {
-        PM.enabled = false;
+        PlayerMovement.isSkilled = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Skill2");
     }
