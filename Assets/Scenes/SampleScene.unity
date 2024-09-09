@@ -944,6 +944,7 @@ MonoBehaviour:
   isInvin: 0
   Force: 15
   PunchedForce: 20
+  DamagedForce: 2
   DamageText: {fileID: 1112538282744856368, guid: 486b0e8bed08eb94e8d2c9284c4d515a, type: 3}
   PhysicsMaterial: {fileID: 6200000, guid: 452764304ed443b45be600c8561588d4, type: 2}
 --- !u!50 &1256940368

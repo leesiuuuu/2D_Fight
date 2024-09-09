@@ -8,6 +8,15 @@ public class NormalAttack : MonoBehaviour
     private PlayerMovement PM;
     private bool CanCombo = false;
     public GameObject Effect;
+
+    public float MaxDistance;
+    public float MaxDamageAdd;
+
+    private float Distance;
+    private float DamageAdd;
+    private float DamageAddPercent = 1.2f;
+    private bool OnceToggle = false;
+
     void Start()
     {
         Effect.SetActive(false);
@@ -32,29 +41,65 @@ public class NormalAttack : MonoBehaviour
         }
         else if (!Input.anyKey)
         {
-            PlayerMovement.isSkilled = false;
+            PlayerMovement.AnimationStart = false;
+        }
+        if(Input.GetKey(KeyCode.U) && !PlayerMovement.Skill1)
+        {
+            if (!OnceToggle)
+            {
+                Skill1_Charging();
+                OnceToggle = true;
+            }
+            Distance += DamageAddPercent * Time.deltaTime;
+            DamageAdd += DamageAddPercent * Time.deltaTime;
+        }
+        if(Distance >= MaxDistance)
+        {
+            Distance = MaxDistance;
+        }
+        if(DamageAdd >= MaxDamageAdd)
+        {
+            DamageAdd = MaxDamageAdd;
+        }
+        if (Input.GetKeyUp(KeyCode.U))
+        {
+            Skill1Atk();
         }
 
     }
 
     void PunchAtk()
     {
-        PlayerMovement.isSkilled = true;
+        PlayerMovement.AnimationStart = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Punch");
     }
 
     void CounterAtk()
     {
-        PlayerMovement.isSkilled = true;
+        PlayerMovement.AnimationStart = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Counter");
     }
     void Skill2Atk()
     {
-        PlayerMovement.isSkilled = true;
+        PlayerMovement.AnimationStart = true;
+        PlayerMovement.Skill2 = true;
         animator.SetBool("IsRunning", false);
         animator.SetTrigger("Skill2");
+    }
+    void Skill1_Charging()
+    {
+        PlayerMovement.AnimationStart = true;
+        animator.SetBool("IsRunning", false);
+        animator.SetTrigger("Skill1");
+        animator.SetBool("Skill1Charging", true);
+    }
+    void Skill1Atk()
+    {
+        PlayerMovement.AnimationStart = true;
+        animator.SetBool("Skill1Charging", false);
+        OnceToggle = false;
     }
     public void ComboAble()
     {
@@ -71,5 +116,9 @@ public class NormalAttack : MonoBehaviour
     public void EffectDisable()
     {
         Effect.SetActive(false);
+    }
+    public void SkillDisable()
+    {
+        PlayerMovement.Skill2 = false;
     }
 }

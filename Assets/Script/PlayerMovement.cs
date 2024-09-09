@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float Speed;
     public float JumpPower;
 
-    public static bool isSkilled = false;
+    public static bool AnimationStart = false;
+    public static bool Skill2 = false;
+    public static bool Skill1 = false;
 
     private bool isGround = false;
     private Rigidbody2D rb;
@@ -34,38 +31,42 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector3 moveVelocity = Vector3.zero;
-        if (Input.GetKey(KeyCode.A) && !isSkilled)
+        if(!Skill2 && !AnimationStart && !Skill1)
         {
-            animator.SetBool("IsRunning", true);
-            PressCount2 = 0;
-            timer2Active = false;
-            isDouble2 = false;
-            KeyFunction();
-            moveVelocity = Vector3.left * (isDouble ? 1.5f : 1.0f);
-            transform.localScale = new Vector3(-1, 1, 1);
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetBool("IsRunning", true);
+                PressCount2 = 0;
+                timer2Active = false;
+                isDouble2 = false;
+                KeyFunction();
+                moveVelocity = Vector3.left * (isDouble ? 1.5f : 1.0f);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetBool("IsRunning", true);
+                PressCount = 0;
+                timerActive = false;
+                isDouble = false;
+                KeyFunction2();
+                moveVelocity = Vector3.right * (isDouble2 ? 1.5f : 1.0f);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                animator.SetBool("IsRunning", false);
+                isDouble = false;
+                timerActive = false;
+            }
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                animator.SetBool("IsRunning", false);
+                isDouble2 = false;
+                timer2Active = false;
+            }
         }
-        if (Input.GetKey(KeyCode.D) && !isSkilled)
-        {
-            animator.SetBool("IsRunning", true);
-            PressCount = 0;
-            timerActive = false;
-            isDouble = false;
-            KeyFunction2();
-            moveVelocity = Vector3.right * (isDouble2 ? 1.5f : 1.0f);
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        if (Input.GetKeyUp(KeyCode.A) && !isSkilled)
-        {
-            animator.SetBool("IsRunning", false);
-            isDouble = false;
-            timerActive = false;
-        }
-        if (Input.GetKeyUp(KeyCode.D) && !isSkilled)
-        {
-            animator.SetBool("IsRunning", false);
-            isDouble2 = false;
-            timer2Active = false;
-        }
+
         Move(moveVelocity);
         Jump();
 
@@ -120,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isGround)
+        if (Input.GetKeyDown(KeyCode.W) && isGround && !AnimationStart && !Skill2 && !Skill1)
         {
             animator.SetBool("IsJumping", true);
             isGround = false;
