@@ -11,8 +11,10 @@ public class NormalAttack : MonoBehaviour
     private Animator animator;
     private PlayerMovement PM;
     private bool CanCombo = false;
+    public GameObject Effect;
     void Start()
     {
+        Effect.SetActive(false);
         PM = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
     }
@@ -32,6 +34,10 @@ public class NormalAttack : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.I) && !CanCombo)
         {
             Skill2Atk();
+        }
+        else if(Input.GetKeyDown(KeyCode.W) && !CanCombo)
+        {
+
         }
         else if (!Input.anyKey)
         {
@@ -59,12 +65,18 @@ public class NormalAttack : MonoBehaviour
     }
     public void ComboAble()
     {
-        Debug.Log("Event Called!");
         CanCombo = true;
     }
     public void CantAbleCombo()
     {
-        Debug.Log("Event Called?!");
         CanCombo = false;
+    }
+    public void EffectEnable()
+    {
+        Effect.SetActive(true);
+    }
+    public void EffectDisable()
+    {
+        Effect.SetActive(false);
     }
 }
