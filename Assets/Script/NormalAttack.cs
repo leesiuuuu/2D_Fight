@@ -42,7 +42,7 @@ public class NormalAttack : MonoBehaviour
                 Skill2Atk();
             }
         }
-        else if (!Input.anyKey)
+        if (!Input.anyKey)
         {
             PlayerMovement.AnimationStart = false;
         }
@@ -53,7 +53,7 @@ public class NormalAttack : MonoBehaviour
                 Skill1_Charging();
                 OnceToggle = true;
             }
-            Distance += DamageAddPercent * 8 * Time.deltaTime;
+            Distance += DamageAddPercent * 10 * Time.deltaTime;
             DamageAdd += DamageAddPercent * Time.deltaTime;
         }
         if(Distance >= MaxDistance)
@@ -73,7 +73,6 @@ public class NormalAttack : MonoBehaviour
         {
             animator.SetBool("Skill1Charging", false);
         }
-
     }
 
     void PunchAtk()
@@ -109,7 +108,7 @@ public class NormalAttack : MonoBehaviour
         if (!animator.GetBool("Skill1Charging")) animator.SetBool("Skill1Charging", true);
         animator.SetBool("Skill1Charging", false);
         gameObject.GetComponent<Rigidbody2D>().AddForce(((transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left) * Distance, ForceMode2D.Impulse);
-        DummyManager.instance.Skill1Damage += DamageAdd;
+        DummyManager.instance.Skill1Damage += Mathf.Round(DamageAdd);
         OnceToggle = false;
         Distance = 0;
     }
@@ -129,8 +128,13 @@ public class NormalAttack : MonoBehaviour
     {
         Effect.SetActive(false);
     }
-    public void SkillDisable()
+    public void Skill2Disable()
     {
         PlayerMovement.Skill2 = false;
+    }
+    public void Skill1Disable()
+    {
+        PlayerMovement.Skill1 = false;
+        DummyManager.instance.Skill1Damage = 6f;
     }
 }

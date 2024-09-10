@@ -6,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
     public float JumpPower;
 
     public static bool AnimationStart = false;
-    public static bool Skill2 = false;
     public static bool Skill1 = false;
+    public static bool Skill2 = false;
 
     private bool isGround = false;
     private Rigidbody2D rb;
     private Animator animator;
 
+    [Header("Double Key Speed Up")]
     private bool isDouble = false;
     private bool isDouble2 = false;
     private float timer = 0.2f;
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector3 moveVelocity = Vector3.zero;
-        if(!Skill2 && !AnimationStart && !Skill1)
+        if(!Skill2 && !Skill1 && !AnimationStart)
         {
             if (Input.GetKey(KeyCode.A))
             {
