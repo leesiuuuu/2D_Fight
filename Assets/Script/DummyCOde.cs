@@ -56,7 +56,8 @@ public class DummyCOde : MonoBehaviour
             }
             if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill1Atk") && !isAttacking)
             {
-                Damaged_Push(DummyManager.instance.Skill1Damage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce * 1.5f, ConflictPos, false);
+                Damaged_Push(DummyManager.instance.Skill1Damage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce, ConflictPos, false);
+                DummyManager.instance.Skill1Damage = 6f;
             }
 
         }

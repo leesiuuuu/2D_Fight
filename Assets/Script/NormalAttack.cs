@@ -27,43 +27,51 @@ public class NormalAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !CanCombo)
+        if (!CanCombo && !PlayerMovement.Skill1 && !PlayerMovement.Skill2)
         {
-            PunchAtk();
-        }
-        else if (Input.GetKeyDown(KeyCode.K) && !CanCombo)
-        {
-            CounterAtk();
-        }
-        else if(Input.GetKeyDown(KeyCode.I) && !CanCombo)
-        {
-            Skill2Atk();
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                PunchAtk();
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                CounterAtk();
+            }
+            else if(Input.GetKeyDown(KeyCode.I))
+            {
+                Skill2Atk();
+            }
         }
         else if (!Input.anyKey)
         {
             PlayerMovement.AnimationStart = false;
         }
-        if(Input.GetKey(KeyCode.U) && !PlayerMovement.Skill1)
+        if(Input.GetKey(KeyCode.U) && !PlayerMovement.Skill1 && !PlayerMovement.Skill2)
         {
             if (!OnceToggle)
             {
                 Skill1_Charging();
                 OnceToggle = true;
             }
-            Distance += DamageAddPercent * Time.deltaTime;
+            Distance += DamageAddPercent * 8 * Time.deltaTime;
             DamageAdd += DamageAddPercent * Time.deltaTime;
         }
         if(Distance >= MaxDistance)
         {
+            //Effect Add Code
             Distance = MaxDistance;
         }
         if(DamageAdd >= MaxDamageAdd)
         {
             DamageAdd = MaxDamageAdd;
         }
-        if (Input.GetKeyUp(KeyCode.U))
+        if (Input.GetKeyUp(KeyCode.U) && CanCombo)
         {
             Skill1Atk();
+        }
+        if(!PlayerMovement.AnimationStart && animator.GetBool("Skill1Charging"))
+        {
+            animator.SetBool("Skill1Charging", false);
         }
 
     }
@@ -98,8 +106,12 @@ public class NormalAttack : MonoBehaviour
     void Skill1Atk()
     {
         PlayerMovement.AnimationStart = true;
+        if (!animator.GetBool("Skill1Charging")) animator.SetBool("Skill1Charging", true);
         animator.SetBool("Skill1Charging", false);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(((transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left) * Distance, ForceMode2D.Impulse);
+        DummyManager.instance.Skill1Damage += DamageAdd;
         OnceToggle = false;
+        Distance = 0;
     }
     public void ComboAble()
     {

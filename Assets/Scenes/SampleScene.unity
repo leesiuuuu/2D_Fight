@@ -685,6 +685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Effect: {fileID: 1373241463}
+  MaxDistance: 80
+  MaxDamageAdd: 5
 --- !u!1 &1063429582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,6 +1285,7 @@ MonoBehaviour:
   NormalDamage: 2
   CounterDamage: 3
   Skill2Damage: 7
+  Skill1Damage: 6
   Damageinfo: {fileID: 1604749695}
 --- !u!1 &1604749695
 GameObject:
