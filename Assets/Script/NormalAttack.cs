@@ -8,9 +8,13 @@ public class NormalAttack : MonoBehaviour
     private PlayerMovement PM;
     private bool CanCombo = false;
     public GameObject Effect;
+    public GameObject ChargingEffect;
+    public GameObject EffectPos;
 
     public float MaxDistance;
     public float MaxDamageAdd;
+
+    private GameObject Clone;
 
     private float Distance;
     private float DamageAdd;
@@ -50,6 +54,7 @@ public class NormalAttack : MonoBehaviour
         {
             if (!OnceToggle)
             {
+                Clone = Instantiate(ChargingEffect, EffectPos.transform.position, Quaternion.identity);
                 Skill1_Charging();
                 OnceToggle = true;
             }
@@ -68,6 +73,7 @@ public class NormalAttack : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.U) && CanCombo)
         {
             Skill1Atk();
+            Destroy(Clone, 0.5f);
         }
         if(!PlayerMovement.AnimationStart && animator.GetBool("Skill1Charging"))
         {
