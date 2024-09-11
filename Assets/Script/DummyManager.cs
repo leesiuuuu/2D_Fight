@@ -13,7 +13,14 @@ public class DummyManager : MonoBehaviour
     public float CounterDamage = 3f;
     public float Skill2Damage = 7f;
     public float Skill1Damage = 6f;
-    public GameObject Damageinfo;
+    [Header("Hitted Position")]
+    public bool HitHead = false;
+    public bool HitBody = false;
+    public bool HitFoot = false;
+    [Header("INFO")]
+    public TMP_Text Damageinfo;
+    public TMP_Text Stateinfo;
+    public TMP_Text Hitinfo;
     void Awake()
     {
         if(instance == null)
@@ -26,9 +33,21 @@ public class DummyManager : MonoBehaviour
     void Update()
     {
         UpdateDamage();
+        UpdateHit();
+        UpdateState();
     }
     public void UpdateDamage()
     {
-        Damageinfo.GetComponent<TextMeshPro>().text = "Damage : " + Damaged.ToString();
+        Damageinfo.text = "Damage : " + Damaged.ToString();
+    }
+    public void UpdateHit()
+    {
+        Hitinfo.text = "HitHead : " + HitHead + "\n"
+                    + "HitBody : " + HitBody + "\n"
+                    + "HitFoot : " + HitFoot;
+    }
+    public void UpdateState()
+    {
+        Stateinfo.text = "State : " + Damaged.ToString();
     }
 }

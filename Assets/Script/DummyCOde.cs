@@ -1,22 +1,29 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 
 public class DummyCOde : MonoBehaviour
 {
+    [Header("State Bools")]
     public bool isAttacking = false;
     public bool isAirboned = false;
     public bool isInvin = false;
-
+    public bool isDead = false;
+    [Header("Damage Force")]
     public float Force;
     public float PunchedForce;
     public float DamagedForce;
+    [Header("Damage Obj")]
     public GameObject DamageText;
     public PhysicsMaterial2D PhysicsMaterial;
 
+    private Animator animator_Dummy;
     private Rigidbody2D rb;
+    private 
     void Start()
     {
+        animator_Dummy = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         gameObject.layer = 7;
     }
@@ -34,29 +41,10 @@ public class DummyCOde : MonoBehaviour
         Animator animator = other.gameObject.transform.parent.GetComponent<Animator>();
         if (other.gameObject.name == "AttackCol" && !isInvin)
         {
-            Vector2 ConflictPos = (other.gameObject.transform.position + transform.position) / 2;
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Punch") && !isAttacking)
+            if (DummyManager.instance.HitBody)
             {
-                Damaged_Push(DummyManager.instance.NormalDamage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce, ConflictPos, false);
-            }
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Counter"))
-            {
-                if (!isAttacking && !isAirboned)
-                {
-                    Damaged_Push(DummyManager.instance.CounterDamage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce * 1.3f, ConflictPos, false);
-                }
-                else if(!isAttacking && isAirboned)
-                {
-                    Damaged_Push(DummyManager.instance.CounterDamage * 2f, (other.gameObject.transform.parent.transform.localScale == new Vector3(1,1,1)) ? Vector2.right : Vector2.left, PunchedForce, ConflictPos, true);
-                }
-            }
-            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill2") && !isAttacking)
-            {
-                Damaged_Push(DummyManager.instance.Skill2Damage, Vector2.up, Force, ConflictPos, true);
-            }
-            if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill1Atk") && !isAttacking)
-            {
-                Damaged_Push(DummyManager.instance.Skill1Damage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce * 2.5f, ConflictPos, false);
+                animator_Dummy.SetTrigger("HitFront");
+                DamageManager(other, animator);
             }
         }
     }
@@ -95,5 +83,32 @@ public class DummyCOde : MonoBehaviour
         PhysicsMaterial.bounciness = 0f;
         rb.sharedMaterial = PhysicsMaterial;
         isInvin = false;
+    }
+    void DamageManager(Collider2D other, Animator animator)
+    {
+        Vector2 ConflictPos = (other.gameObject.transform.position + transform.position) / 2;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Punch") && !isAttacking)
+        {
+            Damaged_Push(DummyManager.instance.NormalDamage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce, ConflictPos, false);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Counter"))
+        {
+            if (!isAttacking && !isAirboned)
+            {
+                Damaged_Push(DummyManager.instance.CounterDamage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce * 1.3f, ConflictPos, false);
+            }
+            else if (!isAttacking && isAirboned)
+            {
+                Damaged_Push(DummyManager.instance.CounterDamage * 2f, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, PunchedForce, ConflictPos, true);
+            }
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill2") && !isAttacking)
+        {
+            Damaged_Push(DummyManager.instance.Skill2Damage, Vector2.up, Force, ConflictPos, true);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill1Atk") && !isAttacking)
+        {
+            Damaged_Push(DummyManager.instance.Skill1Damage, (other.gameObject.transform.parent.transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left, DamagedForce * 2.5f, ConflictPos, false);
+        }
     }
 }
