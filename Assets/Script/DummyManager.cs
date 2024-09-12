@@ -21,6 +21,11 @@ public class DummyManager : MonoBehaviour
     public TMP_Text Damageinfo;
     public TMP_Text Stateinfo;
     public TMP_Text Hitinfo;
+    [Header("State Bools")]
+    public bool isAttacking = false;
+    public bool isAirboned = false;
+    public bool isInvin = false;
+    public bool isDead = false;
     void Awake()
     {
         if(instance == null)
@@ -48,6 +53,10 @@ public class DummyManager : MonoBehaviour
     }
     public void UpdateState()
     {
-        Stateinfo.text = "State : " + Damaged.ToString();
+        if(isAttacking) Stateinfo.text = "State : PlayerAttacking";
+        else if(isAirboned) Stateinfo.text = "State : Airboned";
+        else if(isInvin) Stateinfo.text = "State : Invin";
+        else if(isDead) Stateinfo.text = "State : Dead";
+        else Stateinfo.text = "State : Null";
     }
 }

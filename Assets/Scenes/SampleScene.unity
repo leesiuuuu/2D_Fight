@@ -1710,10 +1710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d12b24f6c501314b91b9677ba8c034f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttacking: 0
-  isAirboned: 0
-  isInvin: 0
-  isDead: 0
   Force: 15
   PunchedForce: 20
   DamagedForce: 2
@@ -2031,8 +2027,8 @@ GameObject:
   - component: {fileID: 1506138565}
   - component: {fileID: 1506138567}
   - component: {fileID: 1506138566}
+  - component: {fileID: 1506138571}
   - component: {fileID: 1506138569}
-  - component: {fileID: 1506138568}
   - component: {fileID: 1506138570}
   m_Layer: 0
   m_Name: Dummy
@@ -2132,51 +2128,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1506138568
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506138564}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.11, y: -0.19}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 3}
-    newSize: {x: 0.48, y: 0.48}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.78, y: 2.2}
-  m_EdgeRadius: 0
 --- !u!50 &1506138569
 Rigidbody2D:
   serializedVersion: 4
@@ -2216,15 +2167,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d12b24f6c501314b91b9677ba8c034f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttacking: 0
-  isAirboned: 0
-  isInvin: 0
-  isDead: 0
   Force: 15
   PunchedForce: 20
   DamagedForce: 2
   DamageText: {fileID: 1112538282744856368, guid: 486b0e8bed08eb94e8d2c9284c4d515a, type: 3}
   PhysicsMaterial: {fileID: 6200000, guid: 452764304ed443b45be600c8561588d4, type: 2}
+--- !u!61 &1506138571
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506138564}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 452764304ed443b45be600c8561588d4, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.12, y: -0.35}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 0.48, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.41, y: 2.03}
+  m_EdgeRadius: 0
 --- !u!1 &1529118879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,6 +2349,10 @@ MonoBehaviour:
   Damageinfo: {fileID: 290885640}
   Stateinfo: {fileID: 1165787388}
   Hitinfo: {fileID: 133238608}
+  isAttacking: 0
+  isAirboned: 0
+  isInvin: 0
+  isDead: 0
 --- !u!1 &1745789665
 GameObject:
   m_ObjectHideFlags: 0

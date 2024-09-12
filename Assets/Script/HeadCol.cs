@@ -7,8 +7,6 @@ public class HeadCol : MonoBehaviour
         if (cols.gameObject.name == "AttackCol")
         {
             DummyManager.instance.HitHead = true;
-            DummyManager.instance.HitBody = false;
-            DummyManager.instance.HitFoot = false;
 
         }
     }

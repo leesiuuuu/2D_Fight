@@ -7,8 +7,6 @@ public class BodyCol : MonoBehaviour
         if(cols.gameObject.name == "AttackCol")
         {
             DummyManager.instance.HitBody = true;
-            DummyManager.instance.HitFoot = false;
-            DummyManager.instance.HitHead = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
