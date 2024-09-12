@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NormalAttack : MonoBehaviour
@@ -7,19 +8,23 @@ public class NormalAttack : MonoBehaviour
     private Animator animator;
     private PlayerMovement PM;
     private bool CanCombo = false;
+
     public GameObject Effect;
     public GameObject ChargingEffect;
     public GameObject EffectPos;
+    public GameObject DamageFullEffect;
 
     public float MaxDistance;
     public float MaxDamageAdd;
+    public float MaxSpeedModi;
 
     private GameObject Clone;
 
     private float Distance;
     private float DamageAdd;
-    private float DamageAddPercent = 1.2f;
+    private float DamageAddPercent = 1.8f;
     private bool OnceToggle = false;
+    private bool EffectOnceToggle = false;
 
     void Start()
     {
@@ -55,25 +60,34 @@ public class NormalAttack : MonoBehaviour
             if (!OnceToggle)
             {
                 Clone = Instantiate(ChargingEffect, EffectPos.transform.position, Quaternion.identity);
+                Clone.transform.SetParent(this.transform);
                 Skill1_Charging();
                 OnceToggle = true;
             }
-            Distance += DamageAddPercent * 10 * Time.deltaTime;
+            EffectModi(0.7f);
+            Distance += DamageAddPercent * 5 * Time.deltaTime;
             DamageAdd += DamageAddPercent * Time.deltaTime;
         }
         if(Distance >= MaxDistance)
         {
-            //Effect Add Code
             Distance = MaxDistance;
         }
         if(DamageAdd >= MaxDamageAdd)
         {
+            if (!EffectOnceToggle)
+            {
+                GameObject clone = Instantiate(DamageFullEffect, transform.position, Quaternion.identity);
+                Destroy(clone, 0.3f);
+                EffectOnceToggle = true;
+            }
             DamageAdd = MaxDamageAdd;
+
         }
         if (Input.GetKeyUp(KeyCode.U) && CanCombo)
         {
+            Destroy(Clone);
+            Clone = null;
             Skill1Atk();
-            Destroy(Clone, 0.5f);
         }
         if(!PlayerMovement.AnimationStart && animator.GetBool("Skill1Charging"))
         {
@@ -116,6 +130,7 @@ public class NormalAttack : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().AddForce(((transform.localScale == new Vector3(1, 1, 1)) ? Vector2.right : Vector2.left) * Distance, ForceMode2D.Impulse);
         DummyManager.instance.Skill1Damage += Mathf.Round(DamageAdd);
         OnceToggle = false;
+        EffectOnceToggle = false;
         Distance = 0;
     }
     public void ComboAble()
@@ -142,5 +157,15 @@ public class NormalAttack : MonoBehaviour
     {
         PlayerMovement.Skill1 = false;
         DummyManager.instance.Skill1Damage = 6f;
+        DamageAdd = 0f;
+    }
+    void EffectModi(float Percent)
+    {
+        ParticleSystem PS = Clone.GetComponent<ParticleSystem>();
+        var Velocity = PS.velocityOverLifetime;
+        var SpeedModi = Velocity.speedModifier;
+        SpeedModi.constant += Time.deltaTime * Percent;
+        if(SpeedModi.constant >= MaxSpeedModi) Velocity.speedModifier = MaxSpeedModi;
+        else Velocity.speedModifier = SpeedModi;
     }
 }

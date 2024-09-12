@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 83802325}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.51, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1040,7 +1040,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 452764304ed443b45be600c8561588d4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1109,10 +1109,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Effect: {fileID: 1373241463}
-  ChargingEffect: {fileID: 0}
-  EffectPos: {fileID: 0}
-  MaxDistance: 100
+  ChargingEffect: {fileID: 4346754489908707205, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
+  EffectPos: {fileID: 83802325}
+  DamageFullEffect: {fileID: 446488744138282656, guid: 992f8981d30c46646bc9ee5ca3f2e4a6, type: 3}
+  MaxDistance: 25
   MaxDamageAdd: 8
+  MaxSpeedModi: 10
 --- !u!1 &1063429582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,67 +2357,6 @@ MonoBehaviour:
   Damageinfo: {fileID: 290885640}
   Stateinfo: {fileID: 1165787388}
   Hitinfo: {fileID: 133238608}
---- !u!1001 &1651255479
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4346754489908707205, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_Name
-      value: ChargingEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 6528663735957773906, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: VelocityModule.speedModifier.scalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120159904309164698, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 96d30283050de424ca8144ada3dd5dca, type: 3}
 --- !u!1 &1745789665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,4 +2446,3 @@ SceneRoots:
   - {fileID: 1574963022}
   - {fileID: 1506138565}
   - {fileID: 709505448}
-  - {fileID: 1651255479}
